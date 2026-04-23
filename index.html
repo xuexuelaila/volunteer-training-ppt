@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>5月超级AI大航海 · 领队&志愿者培训</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
+  :root {
+    --bg-0: #020817;
+    --bg-1: #07162f;
+    --bg-2: #0d2a4f;
+    --ink: #ecf6ff;
+    --muted: #9cb6cb;
+    --soft: #6b879f;
+    --line: rgba(120, 190, 230, 0.16);
+    --panel: rgba(8, 20, 38, 0.62);
+    --panel-strong: rgba(7, 18, 34, 0.78);
+    --accent: #59d2f4;
+    --accent-2: #f1bd67;
+    --accent-3: #2ad4b3;
+    --danger: #f26b6b;
+    --shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg-0); }
+  body {
+    font-family: 'Noto Sans SC', -apple-system, 'PingFang SC', sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    background:
+      radial-gradient(circle at top left, rgba(89,210,244,0.12), transparent 28%),
+      radial-gradient(circle at 82% 12%, rgba(241,189,103,0.10), transparent 24%),
+      linear-gradient(145deg, #020817 0%, #07162f 44%, #0a2140 100%);
+  }
+
+  .slide {
+    width: 100vw; height: 100vh;
+    position: absolute; top: 0; left: 0;
+    display: none; flex-direction: column;
+    justify-content: center; align-items: center; padding: 0 8.5%;
+    background:
+      linear-gradient(145deg, rgba(2,8,23,0.96) 0%, rgba(7,22,47,0.94) 42%, rgba(10,33,64,0.96) 100%);
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+  .slide.active { display: flex; opacity: 1; }
+  .slide.fade-out { opacity: 0; }
+
+  /* Background decorations */
+  .slide::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 82% 58% at 14% 86%, rgba(18,96,168,0.22), transparent 60%),
+      radial-gradient(ellipse 48% 34% at 84% 14%, rgba(89,210,244,0.12), transparent 52%),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 100%);
+    background-size: auto, auto, 120px 120px;
+  }
+  .slide::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(circle at 10% 14%, rgba(89,210,244,0.16), transparent 0 14%),
+      radial-gradient(circle at 92% 82%, rgba(241,189,103,0.14), transparent 0 11%);
+    opacity: 0.9;
+  }
+
+  /* Floating particles animation */
+  @keyframes float-particle {
+    0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+    25% { transform: translateY(-20px) translateX(10px); opacity: 0.6; }
+    50% { transform: translateY(-10px) translateX(-5px); opacity: 0.4; }
+    75% { transform: translateY(-30px) translateX(15px); opacity: 0.5; }
+  }
+
+  .content {
+    position: relative;
+    z-index: 1;
+    width: min(1240px, 100%);
+    margin: 0 auto;
+    text-align: center;
+  }
+  .content > * { position: relative; z-index: 1; }
+
+  /* Entry animations for content elements */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeLeft {
+    from { opacity: 0; transform: translateX(-40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes fadeRight {
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 8px rgba(79,195,227,0.3); }
+    50% { box-shadow: 0 0 20px rgba(79,195,227,0.6); }
+  }
+
+  .slide.active .tag { animation: fadeUp 0.5s ease both; animation-delay: 0.1s; }
+  .slide.active h1 { animation: fadeUp 0.6s ease both; animation-delay: 0.2s; }
+  .slide.active h2 { animation: fadeUp 0.6s ease both; animation-delay: 0.25s; }
+  .slide.active .subtitle { animation: fadeUp 0.5s ease both; animation-delay: 0.35s; }
+  .slide.active .highlight-box { animation: scaleIn 0.5s ease both; animation-delay: 0.4s; }
+  .slide.active .item:nth-child(1) { animation: fadeLeft 0.5s ease both; animation-delay: 0.3s; }
+  .slide.active .item:nth-child(2) { animation: fadeLeft 0.5s ease both; animation-delay: 0.4s; }
+  .slide.active .item:nth-child(3) { animation: fadeLeft 0.5s ease both; animation-delay: 0.5s; }
+  .slide.active .item:nth-child(4) { animation: fadeLeft 0.5s ease both; animation-delay: 0.6s; }
+  .slide.active .item:nth-child(5) { animation: fadeLeft 0.5s ease both; animation-delay: 0.7s; }
+  .slide.active .cards { animation: fadeUp 0.6s ease both; animation-delay: 0.35s; }
+  .slide.active .card:nth-child(1) { animation: scaleIn 0.4s ease both; animation-delay: 0.3s; }
+  .slide.active .card:nth-child(2) { animation: scaleIn 0.4s ease both; animation-delay: 0.4s; }
+  .slide.active .card:nth-child(3) { animation: scaleIn 0.4s ease both; animation-delay: 0.5s; }
+  .slide.active .card:nth-child(4) { animation: scaleIn 0.4s ease both; animation-delay: 0.6s; }
+  .slide.active .card:nth-child(5) { animation: scaleIn 0.4s ease both; animation-delay: 0.7s; }
+  .slide.active .timeline { animation: fadeUp 0.6s ease both; animation-delay: 0.3s; }
+  .slide.active .tl-dot { animation: glowPulse 2s ease-in-out infinite; }
+  .slide.active .flow { animation: fadeUp 0.6s ease both; animation-delay: 0.3s; }
+  .slide.active .flow-step:nth-child(1) { animation: fadeLeft 0.4s ease both; animation-delay: 0.3s; }
+  .slide.active .flow-step:nth-child(3) { animation: fadeLeft 0.4s ease both; animation-delay: 0.5s; }
+  .slide.active .flow-step:nth-child(5) { animation: fadeLeft 0.4s ease both; animation-delay: 0.7s; }
+  .slide.active .flow-step:nth-child(7) { animation: fadeLeft 0.4s ease both; animation-delay: 0.9s; }
+  .slide.active .flow-arrow { animation: fadeUp 0.3s ease both; animation-delay: 0.4s; }
+  .slide.active .two-col > :first-child { animation: fadeLeft 0.5s ease both; animation-delay: 0.3s; }
+  .slide.active .two-col > :last-child { animation: fadeRight 0.5s ease both; animation-delay: 0.4s; }
+
+  /* Typography */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 18px;
+    border: 1px solid rgba(89,210,244,0.24);
+    border-radius: 999px;
+    background: rgba(8,20,38,0.4);
+    backdrop-filter: blur(10px);
+    font-size: 13px;
+    letter-spacing: 0.24em;
+    color: var(--accent);
+    margin-bottom: 24px;
+    font-weight: 700;
+  }
+  h1 { font-size: 78px; font-weight: 900; line-height: 1.14; margin-bottom: 28px; letter-spacing: -0.03em; }
+  h1 .accent { color: var(--accent); }
+  h2 { font-size: 54px; font-weight: 900; line-height: 1.2; margin-bottom: 34px; letter-spacing: -0.03em; }
+  h2 .accent { color: var(--accent); }
+  .subtitle { font-size: 24px; color: var(--muted); line-height: 1.9; max-width: 1000px; margin-left: auto; margin-right: auto; }
+  .subtitle .hl { color: var(--accent); font-weight: 700; }
+
+  /* Lists */
+  .items { display: flex; flex-direction: column; gap: 28px; margin-top: 40px; align-items: center; }
+  .item { display: flex; align-items: flex-start; justify-content: center; gap: 16px; font-size: 22px; line-height: 1.86; color: #d2e4f3; max-width: 980px; text-align: center; }
+  .item .num {
+    flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%;
+    background: rgba(89,210,244,0.14); border: 1px solid rgba(89,210,244,0.28);
+    color: var(--accent); font-size: 16px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; margin-top: 2px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+  }
+  .item .dot {
+    flex-shrink: 0; width: 12px; height: 12px; border-radius: 50%;
+    background: var(--accent); margin-top: 14px;
+    box-shadow: 0 0 18px rgba(89,210,244,0.42);
+  }
+  .item .dot.gold { background: var(--accent-2); box-shadow: 0 0 18px rgba(241,189,103,0.36); }
+  .item .dot.red { background: var(--danger); box-shadow: 0 0 18px rgba(242,107,107,0.3); }
+  .item .dot.green { background: var(--accent-3); box-shadow: 0 0 18px rgba(42,212,179,0.34); }
+  .item strong { color: var(--ink); font-weight: 700; }
+
+  /* Cards grid */
+  .cards { display: grid; gap: 28px; margin-top: 42px; }
+  .cards-5 { grid-template-columns: repeat(5, 1fr); }
+  .cards-3 { grid-template-columns: repeat(3, 1fr); }
+  .cards-4 { grid-template-columns: repeat(4, 1fr); }
+  .card {
+    background: linear-gradient(180deg, rgba(12,27,49,0.86) 0%, rgba(7,18,34,0.72) 100%);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 34px 30px;
+    backdrop-filter: blur(16px);
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    text-align: center;
+  }
+  .card:hover {
+    border-color: rgba(89,210,244,0.35);
+    box-shadow: 0 0 24px rgba(89,210,244,0.08), 0 20px 40px rgba(0,0,0,0.24);
+    transform: translateY(-3px);
+  }
+  .card-title { font-size: 22px; font-weight: 900; color: var(--accent); margin-bottom: 18px; }
+  .card-body { font-size: 17px; color: var(--muted); line-height: 2; }
+  .card-body strong { color: var(--ink); }
+
+  /* Calendar */
+  .calendar {
+    margin-top: 44px;
+    padding: 30px;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    background: linear-gradient(180deg, rgba(10,24,45,0.76) 0%, rgba(7,18,34,0.68) 100%);
+    box-shadow: var(--shadow);
+  }
+  .calendar-month {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-top: 8px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(89,210,244,0.16);
+    background: rgba(8,20,38,0.34);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16);
+  }
+  .calendar-month .month-cn {
+    font-size: 30px;
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+  }
+  .calendar-month .month-en {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+  }
+  .calendar-head {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  .calendar-weekday {
+    padding: 12px 0;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--soft);
+    text-align: center;
+  }
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .calendar-day {
+    min-height: 128px;
+    padding: 18px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(120, 190, 230, 0.1);
+    background: rgba(9, 21, 39, 0.46);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .calendar-day.empty {
+    background: rgba(255,255,255,0.02);
+    border-style: dashed;
+    border-color: rgba(120, 190, 230, 0.06);
+  }
+  .calendar-day.is-event {
+    background: linear-gradient(180deg, rgba(14,31,56,0.88) 0%, rgba(9,21,39,0.78) 100%);
+    border-color: rgba(89,210,244,0.18);
+  }
+  .calendar-day.is-key {
+    border-color: rgba(241,189,103,0.34);
+    box-shadow: inset 0 0 0 1px rgba(241,189,103,0.12);
+  }
+  .calendar-date {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  .calendar-day.is-event .calendar-date {
+    color: var(--accent);
+  }
+  .calendar-day.is-key .calendar-date {
+    color: var(--accent-2);
+  }
+  .calendar-event {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+  .calendar-event::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--accent);
+    box-shadow: 0 0 12px rgba(89,210,244,0.42);
+  }
+  .calendar-day.is-key .calendar-event::before {
+    background: var(--accent-2);
+    box-shadow: 0 0 12px rgba(241,189,103,0.36);
+  }
+
+  /* Flow */
+  .flow { display: flex; align-items: center; gap: 16px; margin-top: 42px; }
+  .flow-step {
+    flex: 1; text-align: center; padding: 30px 24px;
+    background: linear-gradient(180deg, rgba(12,27,49,0.82) 0%, rgba(7,18,34,0.72) 100%);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+  }
+  .flow-step .step-title { font-size: 20px; font-weight: 900; color: var(--accent); margin-bottom: 12px; }
+  .flow-step .step-who { font-size: 15px; color: var(--muted); line-height: 1.8; }
+  .flow-arrow { font-size: 30px; color: rgba(89,210,244,0.46); padding: 0 4px; flex-shrink: 0; }
+
+  /* Highlight box */
+  .highlight-box {
+    margin-top: 42px; padding: 36px 40px; border-radius: 22px;
+    background: linear-gradient(180deg, rgba(89,210,244,0.10) 0%, rgba(14,31,56,0.62) 100%);
+    border: 1px solid rgba(89,210,244,0.24);
+    font-size: 24px; color: var(--ink); line-height: 1.9; font-weight: 700;
+    text-align: center;
+    box-shadow: var(--shadow);
+  }
+
+  /* Page indicator */
+  .page-ind {
+    position: fixed; bottom: 28px; right: 40px; z-index: 100;
+    font-size: 13px; color: rgba(255,255,255,0.42); letter-spacing: 0.1em;
+  }
+
+  /* Center slide */
+  .slide.center { align-items: center; text-align: center; }
+  .slide.center h1, .slide.center h2 { text-align: center; }
+  .cover .content, .closing .content { max-width: 1080px; }
+  .cover .content {
+    max-width: 1240px;
+    transform: translateY(-10px);
+  }
+  .cover .tag {
+    padding: 10px 18px;
+    font-size: 16px;
+    margin-bottom: 34px;
+  }
+  .cover h1 {
+    font-size: 98px;
+    line-height: 1.03;
+    margin-bottom: 32px;
+  }
+  .cover h2 {
+    font-size: 50px !important;
+    line-height: 1.2;
+    margin-bottom: 0;
+  }
+  .cover .subtitle {
+    margin-top: 54px !important;
+    font-size: 30px !important;
+    line-height: 1.5;
+    color: #7f98ad !important;
+  }
+
+  /* Two column */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; margin-top: 42px; }
+
+  .agenda-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 42px;
+  }
+  .agenda-card {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    padding: 28px 30px;
+    border-radius: 18px;
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(12,27,49,0.84) 0%, rgba(7,18,34,0.74) 100%);
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .agenda-copy { flex: 1; }
+  .agenda-index {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(89,210,244,0.12);
+    border: 1px solid rgba(89,210,244,0.26);
+    color: var(--accent);
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .agenda-copy strong { display: block; margin-bottom: 8px; color: var(--ink); font-size: 22px; }
+  .agenda-copy span { color: var(--muted); font-size: 17px; line-height: 1.95; }
+
+  .claim-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+    gap: 52px;
+    margin-top: 32px;
+    align-items: stretch;
+    width: min(1240px, 100%);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .big-claim, .split-note, .panel {
+    border-radius: 22px;
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(12,27,49,0.86) 0%, rgba(7,18,34,0.74) 100%);
+    box-shadow: var(--shadow);
+  }
+  .big-claim {
+    padding: 52px 58px;
+    font-size: 38px;
+    line-height: 1.72;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .big-claim .accent { color: var(--accent); }
+  .split-note {
+    padding: 42px 42px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 26px;
+    text-align: left;
+    min-height: 280px;
+  }
+  .what-slide .content {
+    width: min(1240px, 100%);
+  }
+  .what-slide .intro-head {
+    margin-bottom: 52px;
+  }
+  .what-slide .intro-head .tag {
+    margin-bottom: 20px;
+  }
+  .what-slide .intro-head h2 {
+    margin-bottom: 0;
+    font-size: 62px;
+  }
+  .what-slide .claim-row {
+    align-items: stretch;
+    grid-template-columns: minmax(0, 1.45fr) minmax(320px, 0.8fr);
+    gap: 42px;
+    margin-top: 0;
+  }
+  .what-slide .big-claim {
+    min-height: 340px;
+    padding: 54px 60px;
+    font-size: 30px;
+    line-height: 1.5;
+    text-align: center;
+  }
+  .what-slide .big-claim .full-line {
+    display: block;
+    white-space: nowrap;
+    font-size: 1em;
+  }
+  .what-slide .big-claim .second-line {
+    display: block;
+    margin-top: 28px;
+    font-size: 1.6em;
+    line-height: 1.2;
+  }
+  .what-slide .big-claim .accent {
+    font-size: 1.18em;
+  }
+  .what-slide .split-note {
+    min-height: 340px;
+    padding: 46px 42px;
+  }
+  .split-note .kicker {
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    color: var(--accent-2);
+    font-weight: 700;
+  }
+  .split-note .desc {
+    font-size: 18px;
+    line-height: 2;
+    color: var(--muted);
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+    margin-top: 42px;
+  }
+  .feature-card {
+    padding: 32px 30px 34px;
+    border-radius: 20px;
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(12,27,49,0.86) 0%, rgba(7,18,34,0.74) 100%);
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .feature-no {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(89,210,244,0.12);
+    border: 1px solid rgba(89,210,244,0.22);
+    color: var(--accent);
+    font-weight: 800;
+    margin-bottom: 20px;
+  }
+  .feature-card h3,
+  .panel h3,
+  .role-title {
+    font-size: 26px;
+    line-height: 1.45;
+    margin-bottom: 14px;
+    color: var(--ink);
+  }
+  .feature-card p,
+  .panel p,
+  .role-body,
+  .micro-copy {
+    color: var(--muted);
+    font-size: 17px;
+    line-height: 2;
+  }
+
+  .role-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+    margin-top: 42px;
+  }
+  .role-card {
+    padding: 34px 30px;
+    border-radius: 20px;
+    border: 1px solid var(--line);
+    background: linear-gradient(180deg, rgba(12,27,49,0.86) 0%, rgba(7,18,34,0.74) 100%);
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .role-chip {
+    display: inline-block;
+    margin-bottom: 18px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--accent);
+    border: 1px solid rgba(89,210,244,0.22);
+    background: rgba(89,210,244,0.08);
+  }
+  .team-note {
+    margin-top: 30px;
+    padding: 28px 34px;
+    border-radius: 18px;
+    border: 1px solid rgba(89,210,244,0.18);
+    background: rgba(89,210,244,0.08);
+    color: var(--ink);
+    font-size: 21px;
+    line-height: 1.92;
+    text-align: center;
+  }
+
+  .event-strip {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 42px;
+  }
+  .event-card {
+    min-height: 220px;
+    padding: 32px 28px;
+    border-radius: 18px;
+    border: 1px solid rgba(241,189,103,0.18);
+    background: linear-gradient(180deg, rgba(28,24,16,0.55) 0%, rgba(7,18,34,0.76) 100%);
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .event-time {
+    font-size: 34px;
+    font-weight: 900;
+    color: var(--accent-2);
+    margin-bottom: 12px;
+  }
+  .event-title {
+    font-size: 20px;
+    color: var(--ink);
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .event-body {
+    font-size: 16px;
+    color: var(--muted);
+    line-height: 1.95;
+  }
+
+  .panel {
+    padding: 34px 34px 30px;
+    text-align: center;
+  }
+  .panel.gold {
+    border-color: rgba(241,189,103,0.22);
+    background: linear-gradient(180deg, rgba(42,33,16,0.54) 0%, rgba(7,18,34,0.76) 100%);
+  }
+  .panel h3 { margin-bottom: 18px; }
+
+  .closing-mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 52px;
+    padding: 14px 22px;
+    border-radius: 999px;
+    background: rgba(241,189,103,0.12);
+    border: 1px solid rgba(241,189,103,0.22);
+    color: var(--accent-2);
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  @media (max-width: 1200px) {
+    .cards-5,
+    .cards-4,
+    .cards-3,
+    .calendar-head,
+    .calendar-grid,
+    .feature-grid,
+    .role-grid,
+    .event-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .agenda-grid,
+    .claim-row,
+    .two-col { grid-template-columns: 1fr; }
+    .flow { flex-wrap: wrap; }
+    .flow-arrow { display: none; }
+    .flow-step { min-width: calc(50% - 10px); }
+  }
+</style>
+</head>
+<body>
+
+<!-- P1: 封面 -->
+<div class="slide center cover active" id="s1">
+  <div class="content">
+    <div class="tag">VOYAGE TRAINING · 2026.05</div>
+    <h1>5月超级<span class="accent">AI</span>大航海</h1>
+    <h2 style="font-size:32px; color:#9AB2C7; font-weight:500;">领队 & 志愿者培训</h2>
+    <div class="subtitle" style="margin-top:40px; font-size:18px; color:#5A7088;">一起把这14天走好</div>
+  </div>
+</div>
+
+<!-- P2: 破冰互动 -->
+<div class="slide" id="s2">
+  <div class="content">
+    <div class="tag">CHECK IN</div>
+    <h2>先来打个招呼</h2>
+    <div class="highlight-box" style="max-width:980px; margin-left:auto; margin-right:auto; font-size:28px; line-height:1.7;">
+      大家在评论区用这个格式介绍一下自己
+    </div>
+    <div class="panel" style="max-width:860px; margin:26px auto 0;">
+      <h3 style="font-size:30px; color:#59d2f4; margin-bottom:18px;">【昵称】+【坐标】+【第几次参与航海】+【领队 / 志愿者】</h3>
+      <div class="micro-copy" style="font-size:18px; line-height:1.8;">
+        先认识彼此，后面协作会顺很多。<br>
+        也方便大家快速知道彼此在哪、带什么角色、是不是老朋友。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- P3: 今天聊什么 -->
+<div class="slide" id="s3">
+  <div class="content">
+    <div class="tag">AGENDA</div>
+    <h2>今天聊什么</h2>
+    <div class="agenda-grid">
+      <div class="agenda-card"><div class="agenda-index">1</div><div class="agenda-copy"><strong>5月航海全貌</strong><span>这次航海是什么，跟以往有什么不同</span></div></div>
+      <div class="agenda-card"><div class="agenda-index">2</div><div class="agenda-copy"><strong>咱们怎么配合</strong><span>领队和志愿者各自盯什么、怎么互相接力</span></div></div>
+      <div class="agenda-card"><div class="agenda-index">3</div><div class="agenda-copy"><strong>每天的节奏</strong><span>标准动作 + 特殊节点，全员怎么配合</span></div></div>
+      <div class="agenda-card"><div class="agenda-index">4</div><div class="agenda-copy"><strong>作业筛选全链路</strong><span>从船员提交到教练点评，流程怎么跑顺</span></div></div>
+      <div class="agenda-card"><div class="agenda-index">5</div><div class="agenda-copy"><strong>常见情况处理</strong><span>遇到掉队、卡点、风控这些情况怎么办</span></div></div>
+    </div>
+    <div class="subtitle" style="margin-top:24px; font-size:16px;">从这一页开始，我们把“知道要做什么”变成“知道怎么一起做”。</div>
+  </div>
+</div>
+
+<!-- P4: 这次航海是什么 -->
+<div class="slide what-slide" id="s4">
+  <div class="content">
+    <div class="intro-head">
+      <div class="tag">MODULE 01 · 航海全貌</div>
+      <h2>这次航海是什么</h2>
+    </div>
+    <div class="claim-row">
+      <div class="big-claim">
+        <span class="full-line">用 <span class="accent">14天</span> 的时间，帮船员系统掌握 AI 的</span>
+        <span class="second-line"><span class="accent">五大核心能力</span></span>
+      </div>
+      <div class="split-note">
+        <div class="kicker">WHY THIS ROUND IS DIFFERENT</div>
+        <div class="desc">跟以往围绕单一项目不同，这次不是学一个招，而是搭一整套能力底盘。</div>
+        <div class="desc">课程设计、直播安排、作业要求，都会围绕这套能力体系来推进。</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- P5: 五大能力 -->
+<div class="slide" id="s5">
+  <div class="content">
+    <div class="tag">MODULE 01 · 航海全貌</div>
+    <h2>五大核心能力</h2>
+    <div class="cards cards-5">
+      <div class="card">
+        <div class="card-title">思考能力</div>
+        <div class="card-body">把AI当对话外脑<br>帮自己想问题、拆问题</div>
+      </div>
+      <div class="card">
+        <div class="card-title">积累能力</div>
+        <div class="card-body">把零散信息沉淀成<br>可复用的知识库</div>
+      </div>
+      <div class="card">
+        <div class="card-title">表达能力</div>
+        <div class="card-body">用AI做文字、图片、视频<br>把想法变成内容</div>
+      </div>
+      <div class="card">
+        <div class="card-title">产品能力</div>
+        <div class="card-body">不会代码也能<br>用AI做产品</div>
+      </div>
+      <div class="card">
+        <div class="card-title">执行能力</div>
+        <div class="card-body">用AI Agent自动化<br>让AI帮你干活</div>
+      </div>
+    </div>
+    <div class="subtitle" style="margin-top:24px; font-size:15px; text-align:center;">
+      课程设计、直播安排、船员作业，都围绕这五个维度展开
+    </div>
+  </div>
+</div>
+
+<!-- P6: 关键时间线 -->
+<div class="slide" id="s6">
+  <div class="content">
+    <div class="tag">MODULE 01 · 航海全貌</div>
+    <h2>关键时间线</h2>
+    <div class="calendar-month">
+      <span class="month-cn">5月</span>
+      <span class="month-en">MAY</span>
+    </div>
+    <div class="calendar">
+      <div class="calendar-head">
+        <div class="calendar-weekday">MON</div>
+        <div class="calendar-weekday">TUE</div>
+        <div class="calendar-weekday">WED</div>
+        <div class="calendar-weekday">THU</div>
+        <div class="calendar-weekday">FRI</div>
+        <div class="calendar-weekday">SAT</div>
+        <div class="calendar-weekday">SUN</div>
+      </div>
+      <div class="calendar-grid">
+        <div class="calendar-day empty"></div>
+        <div class="calendar-day empty"></div>
+        <div class="calendar-day empty"></div>
+        <div class="calendar-day is-event">
+          <div class="calendar-date">1</div>
+          <div class="calendar-event">添加船员<br>邀请进群</div>
+        </div>
+        <div class="calendar-day">
+          <div class="calendar-date">2</div>
+        </div>
+        <div class="calendar-day">
+          <div class="calendar-date">3</div>
+        </div>
+        <div class="calendar-day">
+          <div class="calendar-date">4</div>
+        </div>
+
+        <div class="calendar-day">
+          <div class="calendar-date">5</div>
+        </div>
+        <div class="calendar-day">
+          <div class="calendar-date">6</div>
+        </div>
+        <div class="calendar-day is-event is-key">
+          <div class="calendar-date">7</div>
+          <div class="calendar-event">正式启航<br>开船仪式</div>
+        </div>
+        <div class="calendar-day">
+          <div class="calendar-date">8</div>
+        </div>
+        <div class="calendar-day is-event">
+          <div class="calendar-date">9</div>
+          <div class="calendar-event">直播 2</div>
+        </div>
+        <div class="calendar-day">
+          <div class="calendar-date">10</div>
+        </div>
+        <div class="calendar-day">
+          <div class="calendar-date">11</div>
+        </div>
+
+        <div class="calendar-day is-event">
+          <div class="calendar-date">12</div>
+          <div class="calendar-event">直播 3</div>
+        </div>
+        <div class="calendar-day is-event is-key">
+          <div class="calendar-date">13</div>
+          <div class="calendar-event">作业点评 1<br>作业 1+2</div>
+        </div>
+        <div class="calendar-day is-event">
+          <div class="calendar-date">14</div>
+          <div class="calendar-event">直播 4</div>
+        </div>
+        <div class="calendar-day">
+          <div class="calendar-date">15</div>
+        </div>
+        <div class="calendar-day">
+          <div class="calendar-date">16</div>
+        </div>
+        <div class="calendar-day">
+          <div class="calendar-date">17</div>
+        </div>
+        <div class="calendar-day">
+          <div class="calendar-date">18</div>
+        </div>
+
+        <div class="calendar-day is-event">
+          <div class="calendar-date">19</div>
+          <div class="calendar-event">直播 5</div>
+        </div>
+        <div class="calendar-day">
+          <div class="calendar-date">20</div>
+        </div>
+        <div class="calendar-day is-event is-key">
+          <div class="calendar-date">21</div>
+          <div class="calendar-event">作业点评 2<br>作业 3+4+5</div>
+        </div>
+        <div class="calendar-day is-event is-key">
+          <div class="calendar-date">22</div>
+          <div class="calendar-event">靠岸<br>航海结束</div>
+        </div>
+        <div class="calendar-day">
+          <div class="calendar-date">23</div>
+        </div>
+        <div class="calendar-day">
+          <div class="calendar-date">24</div>
+        </div>
+        <div class="calendar-day">
+          <div class="calendar-date">25</div>
+        </div>
+      </div>
+    </div>
+    <div class="subtitle" style="margin-top:22px; font-size:15px;">金色节点是最需要领队和志愿者一起盯紧的关键动作。</div>
+  </div>
+</div>
+
+<!-- P7: 四个阶段 -->
+<div class="slide" id="s7">
+  <div class="content">
+    <div class="tag">MODULE 01 · 航海全貌</div>
+    <h2>四个阶段</h2>
+    <div class="cards cards-4">
+      <div class="card">
+        <div class="card-title">开船前</div>
+        <div class="card-body">5月1日起<br><strong>添加船员、建群<br>熟悉资料</strong></div>
+      </div>
+      <div class="card">
+        <div class="card-title">启航头2-3天</div>
+        <div class="card-body">问题最集中<br><strong>保持在线频率<br>及时响应</strong></div>
+      </div>
+      <div class="card">
+        <div class="card-title">航海中期</div>
+        <div class="card-body">节奏稳定<br><strong>推进作业、筛选<br>配合点评</strong></div>
+      </div>
+      <div class="card">
+        <div class="card-title">冲刺靠岸</div>
+        <div class="card-body">最后冲刺<br><strong>催作业收尾<br>靠岸仪式</strong></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- P8: 三个核心区别 -->
+<div class="slide" id="s8">
+  <div class="content">
+    <div class="tag">MODULE 01 · 航海全貌</div>
+    <h2>跟以往的<span class="accent">三个核心区别</span></h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-no">1</div>
+        <h3>作业交产出物，不是写日志</h3>
+        <p>每个作业都要提交完整产出物，比如视频成片、已部署主页、能运行的 Agent。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-no">2</div>
+        <h3>完成 3/5 即可退保证金</h3>
+        <p>船员交 199 元保证金，14 天内完成 5 个作业中的 3 个即可拿回，这是推进完航的重要抓手。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-no">3</div>
+        <h3>教练协作，咱们是一个团队</h3>
+        <p>每群 2 位教练负责答疑和点评，领队、志愿者、教练不是平行作战，而是协同推进一件事。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- P9: 咱们怎么配合 -->
+<div class="slide" id="s9">
+  <div class="content">
+    <div class="tag">MODULE 02 · 怎么配合</div>
+    <h2>一个团队，各自发力</h2>
+    <div class="role-grid">
+      <div class="role-card">
+        <div class="role-chip">LEAD</div>
+        <div class="role-title">领队看面</div>
+        <div class="role-body">看整体节奏、推进度、关键节点和协作状态，确保整条船不失速。</div>
+      </div>
+      <div class="role-card">
+        <div class="role-chip">CARE</div>
+        <div class="role-title">志愿者看点</div>
+        <div class="role-body">陪伴每位船员，私聊跟进、补位提醒、在快掉队时推一把。</div>
+      </div>
+      <div class="role-card">
+        <div class="role-chip">COACH</div>
+        <div class="role-title">教练答疑</div>
+        <div class="role-body">处理群内问题、提供专业反馈、在点评节点给出可复制的案例。</div>
+      </div>
+    </div>
+    <div class="team-note">一个看面，一个看点，一个接问题。信息不要堵在某一个人手里，流通起来大家才会轻松。</div>
+  </div>
+</div>
+
+<!-- P10: 每天的节奏 -->
+<div class="slide" id="s10">
+  <div class="content">
+    <div class="tag">MODULE 03 · 每日节奏</div>
+    <h2>每天的标准节奏</h2>
+    <div class="cards cards-3">
+      <div class="card" style="border-color:rgba(79,195,227,0.25);">
+        <div class="card-title" style="font-size:28px;">10:00</div>
+        <div class="card-title" style="font-size:16px;">早 · 同步方向</div>
+        <div class="card-body" style="margin-top:8px;">
+          领队发日报 + 志愿者小群同步重点<br><br>
+          <strong style="color:#4FC3E3;">价值：</strong>帮船员每天对焦，降低掉队概率
+        </div>
+      </div>
+      <div class="card" style="border-color:rgba(79,195,227,0.25);">
+        <div class="card-title" style="font-size:28px;">白天</div>
+        <div class="card-title" style="font-size:16px;">中 · 各自跟进</div>
+        <div class="card-body" style="margin-top:8px;">
+          关注群动态、回应提问、私聊跟进船员<br><br>
+          <strong style="color:#4FC3E3;">价值：</strong>群有温度，船员不掉队
+        </div>
+      </div>
+      <div class="card" style="border-color:rgba(79,195,227,0.25);">
+        <div class="card-title" style="font-size:28px;">22:00</div>
+        <div class="card-title" style="font-size:16px;">晚 · 收尾整理</div>
+        <div class="card-body" style="margin-top:8px;">
+          当日合集 + 熄灯提醒 + 问题接龙<br><br>
+          <strong style="color:#4FC3E3;">价值：</strong>没时间跟群的船员也不掉队
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- P11: 特殊节点——直播 -->
+<div class="slide" id="s11">
+  <div class="content">
+    <div class="tag">MODULE 03 · 特殊节点</div>
+    <h2>高手领航直播 <span style="font-size:20px; color:#9AB2C7; font-weight:400;">Day2 / 5 / 7 / 12</span></h2>
+    <div class="event-strip">
+      <div class="event-card">
+        <div class="event-time">12:00</div>
+        <div class="event-title">中午预热</div>
+        <div class="event-body">群里发预热文案，志愿者同步私发提醒，让船员先把时间空出来。</div>
+      </div>
+      <div class="event-card">
+        <div class="event-time">19:30</div>
+        <div class="event-title">二次提醒</div>
+        <div class="event-body">再提醒一次“马上开始了”，把临门一脚的到场率拉起来。</div>
+      </div>
+      <div class="event-card">
+        <div class="event-time">20:00</div>
+        <div class="event-title">链接到位</div>
+        <div class="event-body">发直播间链接，志愿者同步私发，把想参加的人都顺利带进去。</div>
+      </div>
+      <div class="event-card">
+        <div class="event-time">直播中</div>
+        <div class="event-title">场内活跃</div>
+        <div class="event-body">在直播间和群里一起带气氛，帮助船员保持参与感和专注度。</div>
+      </div>
+    </div>
+    <div class="highlight-box" style="margin-top:24px; font-size:16px;">
+      参加直播的船员完航率明显更高 · 每场直播对应一个能力模块，咱们自己听了也有收获
+    </div>
+  </div>
+</div>
+
+<!-- P12: 特殊节点——点评+仪式 -->
+<div class="slide" id="s12">
+  <div class="content">
+    <div class="tag">MODULE 03 · 特殊节点</div>
+    <h2>作业点评日 + 仪式</h2>
+    <div class="two-col">
+      <div class="panel gold">
+        <h3 style="color:#D9B46A;">作业点评 · Day6 + Day14</h3>
+        <div class="items" style="gap:12px;">
+          <div class="item" style="font-size:16px;"><span class="dot gold"></span><span>点评前：志愿者筛选 → 领队审核 → 发教练</span></div>
+          <div class="item" style="font-size:16px;"><span class="dot gold"></span><span>点评中：群内活跃气氛、鼓励船员</span></div>
+          <div class="item" style="font-size:16px;"><span class="dot gold"></span><span>点评后：整理合集 + 私发被点评船员</span></div>
+        </div>
+        <div class="micro-copy" style="margin-top:16px;">
+          案例飞轮的关键时刻：有人做→有人看→有人夸→更多人做
+        </div>
+      </div>
+      <div class="panel">
+        <h3 style="color:#4FC3E3;">仪式 · Day0 + Day15</h3>
+        <div class="items" style="gap:12px;">
+          <div class="item" style="font-size:16px;"><span class="dot"></span><span>Day0 开船：破冰 + 开船直播 + 更新群公告</span></div>
+          <div class="item" style="font-size:16px;"><span class="dot"></span><span>Day15 靠岸：预热 + 靠岸直播</span></div>
+        </div>
+        <div class="micro-copy" style="margin-top:16px;">
+          仪式感让船员觉得"正式开始了"和"我做到了"，社区认同感会很强
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- P13: 作业筛选全链路 -->
+<div class="slide" id="s13">
+  <div class="content">
+    <div class="tag">MODULE 04 · 作业筛选</div>
+    <h2>作业筛选全链路</h2>
+    <div class="flow">
+      <div class="flow-step"><div class="step-title">船员提交</div><div class="step-who">完成产出物</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="step-title">志愿者筛选</div><div class="step-who">挑3-5份推荐</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="step-title">领队审核</div><div class="step-who">汇总确认</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="step-title">教练点评</div><div class="step-who">群内公开点评</div></div>
+    </div>
+    <div class="two-col" style="margin-top:28px;">
+      <div>
+        <h2 style="font-size:18px; margin-bottom:12px;">筛选标准</h2>
+        <div class="items" style="gap:10px;">
+          <div class="item" style="font-size:16px;"><span class="dot green"></span><span><strong>有产出</strong> — 做出了实际的东西</span></div>
+          <div class="item" style="font-size:16px;"><span class="dot green"></span><span><strong>有思考</strong> — 结合自己情况做了调整</span></div>
+          <div class="item" style="font-size:16px;"><span class="dot green"></span><span><strong>有亮点</strong> — 巧妙的角度或新场景</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="background:rgba(79,195,227,0.06);">
+          <div class="card-body" style="font-size:14px;">
+            <strong style="color:#4FC3E3;">所有船员的作业都可以看</strong><br>
+            不限于自己负责的船员，好作业按质量推荐<br><br>
+            看别人的作业 = 快速接触真实AI应用场景<br>
+            <strong>对自己也是很好的学习</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- P14: 常见情况 -->
+<div class="slide" id="s14">
+  <div class="content">
+    <div class="tag">MODULE 05 · 常见情况</div>
+    <h2>常见情况速查</h2>
+    <div class="cards cards-3" style="grid-template-columns: repeat(3, 1fr); gap:14px;">
+      <div class="card">
+        <div class="card-title" style="color:#E15454;">没开始</div>
+        <div class="card-body">私聊关心卡点<br>"最近忙？还是不知道从哪开始？"<br>引导先从第一章开始</div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="color:#D9B46A;">进度慢</div>
+        <div class="card-body">帮找卡点 + 引导群内提问<br>"完成3个就能退保证金，<br>现在开始完全来得及"</div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="color:#14B8A6;">做得好</div>
+        <div class="card-body">推荐到作业筛选<br>鼓励在群里分享做法<br>让正向循环转起来</div>
+      </div>
+    </div>
+    <div class="cards" style="grid-template-columns: 1fr 1fr; gap:14px; margin-top:14px;">
+      <div class="card">
+        <div class="card-title">微信风控</div>
+        <div class="card-body">每天加≤15人 · 话术做变化 · 触发限制立即停+同步小群</div>
+      </div>
+      <div class="card">
+        <div class="card-title">船员换号</div>
+        <div class="card-body">全年仅1次 · 需验证身份 · 同步小群，领队确认后操作</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- P15: 结尾 -->
+<div class="slide center closing" id="s15">
+  <div class="content">
+    <div class="tag">READY TO SAIL</div>
+    <h2 style="font-size:24px; color:#9AB2C7; font-weight:500; margin-bottom:32px;">不用紧张 · 有SOP · 有大群 · 有每日同步</h2>
+    <h1 style="font-size:48px; line-height:1.4;">
+      他们需要的不是一个多厉害的人<br>
+      而是一个走过这条路的人<br>
+      在他们想放弃的时候说一句<br>
+      <span class="accent">"没事，再试一下"</span>
+    </h1>
+    <div class="closing-mark">准备好了吗？打一个「起航」</div>
+  </div>
+</div>
+
+<!-- Progress bar -->
+<div style="position:fixed; bottom:0; left:0; right:0; height:3px; background:rgba(255,255,255,0.05); z-index:100;">
+  <div id="progressBar" style="height:100%; width:0%; background:linear-gradient(90deg, #4FC3E3, #D9B46A); transition: width 0.5s ease; border-radius:0 2px 2px 0;"></div>
+</div>
+<div class="page-ind" id="pageInd">1 / 15</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let cur = 0;
+let transitioning = false;
+
+function go(i) {
+  if (i < 0 || i >= slides.length || transitioning) return;
+  transitioning = true;
+
+  const oldSlide = slides[cur];
+  const newSlide = slides[i];
+
+  // Reset animations on new slide's children
+  newSlide.querySelectorAll('.tag, h1, h2, .subtitle, .highlight-box, .item, .card, .cards, .timeline, .flow, .flow-step, .flow-arrow, .two-col > *').forEach(el => {
+    el.style.animation = 'none';
+    el.offsetHeight; // trigger reflow
+    el.style.animation = '';
+  });
+
+  // Fade out old slide
+  oldSlide.style.opacity = '0';
+
+  setTimeout(() => {
+    oldSlide.classList.remove('active');
+    oldSlide.style.opacity = '';
+    cur = i;
+    newSlide.classList.add('active');
+    document.getElementById('pageInd').textContent = (cur+1) + ' / ' + slides.length;
+
+    // Update progress bar
+    const pct = ((cur) / (slides.length - 1)) * 100;
+    document.getElementById('progressBar').style.width = pct + '%';
+
+    transitioning = false;
+  }, 350);
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); go(cur+1); }
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); go(cur-1); }
+});
+document.addEventListener('click', e => {
+  if (e.clientX > window.innerWidth / 2) go(cur+1); else go(cur-1);
+});
+</script>
+</body>
+</html>
