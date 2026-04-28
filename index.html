@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="5月超级AI大航海领队与志愿者培训幻灯片">
+<meta name="theme-color" content="#020817">
 <title>5月超级AI大航海 · 领队&志愿者培训</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
   :root {
     --bg-0: #020817;
     --bg-1: #07162f;
@@ -25,9 +26,10 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { width: 100%; height: 100%; overflow: hidden; background: var(--bg-0); }
   body {
-    font-family: 'Noto Sans SC', -apple-system, 'PingFang SC', sans-serif;
+    font-family: 'PingFang SC', 'Noto Sans CJK SC', 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, sans-serif;
     color: var(--ink);
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
     background:
       radial-gradient(circle at top left, rgba(89,210,244,0.12), transparent 28%),
       radial-gradient(circle at 82% 12%, rgba(241,189,103,0.10), transparent 24%),
@@ -44,6 +46,7 @@
     overflow: hidden;
     opacity: 0;
     transition: opacity 0.6s ease;
+    isolation: isolate;
   }
   .slide.active { display: flex; opacity: 1; }
   .slide.fade-out { opacity: 0; }
@@ -333,6 +336,57 @@
   .page-ind {
     position: fixed; bottom: 28px; right: 40px; z-index: 100;
     font-size: 13px; color: rgba(255,255,255,0.42); letter-spacing: 0.1em;
+  }
+
+  .nav-controls {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    z-index: 110;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transform: translateX(-50%);
+    padding: 8px;
+    border: 1px solid rgba(120, 190, 230, 0.14);
+    border-radius: 999px;
+    background: rgba(4, 12, 24, 0.54);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.22);
+  }
+  .nav-btn {
+    appearance: none;
+    border: 1px solid rgba(89,210,244,0.18);
+    border-radius: 999px;
+    background: rgba(89,210,244,0.08);
+    color: var(--ink);
+    cursor: pointer;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1;
+    min-width: 42px;
+    padding: 11px 14px;
+    transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  }
+  .nav-btn:hover,
+  .nav-btn:focus-visible {
+    border-color: rgba(89,210,244,0.46);
+    background: rgba(89,210,244,0.16);
+    outline: none;
+    transform: translateY(-1px);
+  }
+  .nav-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.35;
+    transform: none;
+  }
+  .nav-hint {
+    padding: 0 8px;
+    color: rgba(236,246,255,0.58);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
   }
 
   /* Center slide */
@@ -647,6 +701,172 @@
     .flow { flex-wrap: wrap; }
     .flow-arrow { display: none; }
     .flow-step { min-width: calc(50% - 10px); }
+  }
+
+  @media (max-width: 760px) {
+    html, body { overflow: hidden; }
+    .slide {
+      justify-content: flex-start;
+      min-height: 100svh;
+      height: 100svh;
+      padding: 72px 20px 110px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .content { width: 100%; }
+    .tag {
+      margin-bottom: 16px;
+      padding: 8px 12px;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+    }
+    h1,
+    .cover h1 {
+      font-size: clamp(42px, 13vw, 64px);
+      line-height: 1.12;
+      margin-bottom: 20px;
+    }
+    h2,
+    .what-slide .intro-head h2 {
+      font-size: clamp(30px, 9vw, 44px);
+      line-height: 1.22;
+      margin-bottom: 22px;
+    }
+    .cover h2 { font-size: 26px !important; }
+    .subtitle,
+    .cover .subtitle {
+      font-size: 17px !important;
+      line-height: 1.8;
+      margin-top: 20px !important;
+    }
+    .items,
+    .cards,
+    .agenda-grid,
+    .feature-grid,
+    .role-grid,
+    .event-strip,
+    .two-col,
+    .claim-row {
+      grid-template-columns: 1fr !important;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .items { display: flex; gap: 14px; }
+    .item {
+      justify-content: flex-start;
+      text-align: left;
+      font-size: 17px;
+      line-height: 1.75;
+    }
+    .card,
+    .panel,
+    .agenda-card,
+    .feature-card,
+    .role-card,
+    .event-card,
+    .highlight-box {
+      padding: 22px 20px;
+      border-radius: 18px;
+    }
+    .agenda-card {
+      align-items: flex-start;
+      text-align: left;
+    }
+    .agenda-copy strong { font-size: 18px; }
+    .agenda-copy span,
+    .card-body,
+    .feature-card p,
+    .panel p,
+    .role-body,
+    .micro-copy,
+    .event-body {
+      font-size: 15px;
+      line-height: 1.75;
+    }
+    .what-slide .intro-head { margin-bottom: 24px; }
+    .what-slide .claim-row { gap: 16px; }
+    .big-claim,
+    .what-slide .big-claim {
+      min-height: 0;
+      padding: 28px 22px;
+      font-size: 23px;
+      line-height: 1.55;
+    }
+    .what-slide .big-claim .full-line {
+      white-space: normal;
+    }
+    .what-slide .big-claim .second-line {
+      margin-top: 16px;
+      font-size: 1.45em;
+    }
+    .split-note,
+    .what-slide .split-note {
+      min-height: 0;
+      padding: 24px 22px;
+      gap: 14px;
+    }
+    .calendar {
+      margin-top: 24px;
+      padding: 16px;
+      overflow-x: auto;
+    }
+    .calendar-head,
+    .calendar-grid {
+      min-width: 720px;
+      grid-template-columns: repeat(7, minmax(86px, 1fr)) !important;
+      gap: 8px;
+    }
+    .calendar-day {
+      min-height: 92px;
+      padding: 12px 10px;
+      border-radius: 14px;
+    }
+    .calendar-event { font-size: 12px; }
+    .flow {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    .flow-step {
+      min-width: 0;
+      padding: 22px 18px;
+    }
+    .team-note {
+      margin-top: 18px;
+      padding: 20px;
+      font-size: 16px;
+      line-height: 1.75;
+    }
+    .closing h1 { font-size: clamp(28px, 8vw, 40px) !important; }
+    .closing-mark {
+      margin-top: 28px;
+      font-size: 15px;
+    }
+    .nav-controls {
+      bottom: 18px;
+      width: calc(100vw - 32px);
+      justify-content: space-between;
+    }
+    .nav-hint { display: none; }
+    .page-ind {
+      right: 20px;
+      bottom: 82px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(4, 12, 24, 0.5);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.001ms !important;
+    }
   }
 </style>
 </head>
@@ -1129,52 +1349,110 @@
 <div style="position:fixed; bottom:0; left:0; right:0; height:3px; background:rgba(255,255,255,0.05); z-index:100;">
   <div id="progressBar" style="height:100%; width:0%; background:linear-gradient(90deg, #4FC3E3, #D9B46A); transition: width 0.5s ease; border-radius:0 2px 2px 0;"></div>
 </div>
+<nav class="nav-controls" aria-label="幻灯片导航">
+  <button class="nav-btn" type="button" data-nav="prev" aria-label="上一页">上一页</button>
+  <span class="nav-hint">← / → · 空格翻页 · 手机左右滑动</span>
+  <button class="nav-btn" type="button" data-nav="next" aria-label="下一页">下一页</button>
+</nav>
 <div class="page-ind" id="pageInd">1 / 15</div>
 
 <script>
 const slides = document.querySelectorAll('.slide');
+const pageInd = document.getElementById('pageInd');
+const progressBar = document.getElementById('progressBar');
+const prevBtn = document.querySelector('[data-nav="prev"]');
+const nextBtn = document.querySelector('[data-nav="next"]');
 let cur = 0;
 let transitioning = false;
 
-function go(i) {
-  if (i < 0 || i >= slides.length || transitioning) return;
+function setSlideState(i) {
+  slides.forEach((slide, idx) => {
+    const isActive = idx === i;
+    slide.classList.toggle('active', isActive);
+    slide.setAttribute('aria-hidden', String(!isActive));
+  });
+  pageInd.textContent = (i + 1) + ' / ' + slides.length;
+  progressBar.style.width = ((i) / (slides.length - 1)) * 100 + '%';
+  prevBtn.disabled = i === 0;
+  nextBtn.disabled = i === slides.length - 1;
+}
+
+function resetAnimations(slide) {
+  slide.querySelectorAll('.tag, h1, h2, .subtitle, .highlight-box, .item, .card, .cards, .timeline, .flow, .flow-step, .flow-arrow, .two-col > *').forEach(el => {
+    el.style.animation = 'none';
+    el.offsetHeight;
+    el.style.animation = '';
+  });
+}
+
+function go(i, updateHash = true) {
+  const next = Math.max(0, Math.min(i, slides.length - 1));
+  if (next === cur || transitioning) return;
   transitioning = true;
 
   const oldSlide = slides[cur];
-  const newSlide = slides[i];
+  const newSlide = slides[next];
 
-  // Reset animations on new slide's children
-  newSlide.querySelectorAll('.tag, h1, h2, .subtitle, .highlight-box, .item, .card, .cards, .timeline, .flow, .flow-step, .flow-arrow, .two-col > *').forEach(el => {
-    el.style.animation = 'none';
-    el.offsetHeight; // trigger reflow
-    el.style.animation = '';
-  });
+  resetAnimations(newSlide);
 
-  // Fade out old slide
   oldSlide.style.opacity = '0';
 
   setTimeout(() => {
     oldSlide.classList.remove('active');
     oldSlide.style.opacity = '';
-    cur = i;
+    cur = next;
     newSlide.classList.add('active');
-    document.getElementById('pageInd').textContent = (cur+1) + ' / ' + slides.length;
-
-    // Update progress bar
-    const pct = ((cur) / (slides.length - 1)) * 100;
-    document.getElementById('progressBar').style.width = pct + '%';
-
+    setSlideState(cur);
+    if (updateHash) history.replaceState(null, '', '#s' + (cur + 1));
     transitioning = false;
   }, 350);
+}
+
+function goFromHash() {
+  const match = window.location.hash.match(/^#s(\d+)$/);
+  if (!match) return;
+  const target = Number(match[1]) - 1;
+  if (Number.isInteger(target) && target >= 0 && target < slides.length) {
+    cur = target;
+    setSlideState(cur);
+  }
 }
 
 document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); go(cur+1); }
   if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); go(cur-1); }
+  if (e.key === 'Home') { e.preventDefault(); go(0); }
+  if (e.key === 'End') { e.preventDefault(); go(slides.length - 1); }
 });
+
 document.addEventListener('click', e => {
+  if (e.target.closest('.nav-controls')) return;
   if (e.clientX > window.innerWidth / 2) go(cur+1); else go(cur-1);
 });
+
+prevBtn.addEventListener('click', () => go(cur - 1));
+nextBtn.addEventListener('click', () => go(cur + 1));
+window.addEventListener('hashchange', goFromHash);
+
+let touchStartX = 0;
+let touchStartY = 0;
+document.addEventListener('touchstart', e => {
+  if (!e.changedTouches.length) return;
+  touchStartX = e.changedTouches[0].clientX;
+  touchStartY = e.changedTouches[0].clientY;
+}, { passive: true });
+
+document.addEventListener('touchend', e => {
+  if (!e.changedTouches.length) return;
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  const dy = e.changedTouches[0].clientY - touchStartY;
+  if (Math.abs(dx) < 48 || Math.abs(dx) < Math.abs(dy) * 1.25) return;
+  if (dx < 0) go(cur + 1);
+  else go(cur - 1);
+}, { passive: true });
+
+goFromHash();
+setSlideState(cur);
 </script>
 </body>
 </html>
